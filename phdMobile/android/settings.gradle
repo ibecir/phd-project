@@ -1,0 +1,3 @@
+rootProject.name = 'phdMobile'
+
+include ':app'
