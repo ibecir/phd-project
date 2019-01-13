@@ -19,7 +19,7 @@ public class PredictionController {
 
     @RequestMapping("/prediction/car")
     public Prediction car(@RequestParam(value="name", defaultValue="World") String name) throws Exception {
-    	String instance = "mercedes-benz,e model,Polovan,Dizel,l4,45-55,Manuelni,l1,srebrena,five,2 x 2,no,no,yes,yes,yes,no,yes,yes,yes,yes,no,no,yes,yes,yes,yes,NaN";
+    	String instance = "ford,escort model,Polovan,Dizel,l7,0-45,Manuelni,l5,braon,three,2 x 2,no,no,no,no,no,no,no,no,no,no,no,no,no,no,no,no,NaN";
     	String prediction = Utils.mainMethod(instance);
 
         return new Prediction(counter.incrementAndGet(), String.format(template, prediction));

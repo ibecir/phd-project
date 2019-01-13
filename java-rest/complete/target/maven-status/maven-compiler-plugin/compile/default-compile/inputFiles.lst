@@ -1,6 +1,6 @@
-/home/becir/Documents/PhD/gs-rest-service/complete/src/main/java/controllers/PredictionController.java
-/home/becir/Documents/PhD/gs-rest-service/complete/src/main/java/model/Prediction.java
-/home/becir/Documents/PhD/gs-rest-service/complete/src/main/java/controllers/Application.java
-/home/becir/Documents/PhD/gs-rest-service/complete/src/main/java/controllers/GreetingController.java
-/home/becir/Documents/PhD/gs-rest-service/complete/src/main/java/model/Greeting.java
-/home/becir/Documents/PhD/gs-rest-service/complete/src/main/java/util/Utils.java
+/home/becir/Documents/PhD/phd-project/java-rest/complete/src/main/java/util/Utils.java
+/home/becir/Documents/PhD/phd-project/java-rest/complete/src/main/java/controllers/GreetingController.java
+/home/becir/Documents/PhD/phd-project/java-rest/complete/src/main/java/controllers/Application.java
+/home/becir/Documents/PhD/phd-project/java-rest/complete/src/main/java/model/Prediction.java
+/home/becir/Documents/PhD/phd-project/java-rest/complete/src/main/java/model/Greeting.java
+/home/becir/Documents/PhD/phd-project/java-rest/complete/src/main/java/controllers/PredictionController.java
