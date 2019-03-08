@@ -181,3 +181,5 @@ The following guides may also be helpful:
 * https://spring.io/guides/gs/circuit-breaker/[Circuit Breaker]
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]
+
+In order to run java rest api invokoe following command `./mvnw spring-boot:run`
