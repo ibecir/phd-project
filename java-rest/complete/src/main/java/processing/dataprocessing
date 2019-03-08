@@ -1,0 +1,164 @@
+<?php
+
+$raw_file = fopen("framingham.csv", "r");
+$train_data = fopen("train_data.csv", "w");
+$test_data = fopen("test_data.csv", "w");
+$count = 0;
+$class_0_counter = 0;
+$class_1_counter = 0;
+
+while(!feof($raw_file)) {
+  $line = explode(',',fgets($raw_file));
+  if($count == 0){
+    fwrite($train_data, implode(',',$line));
+  }else{
+    $line[1] = parse_age($line[1]);
+    $line[4] = parse_cigs_per_day($line[4]);
+    $line[9] = "'" . parse_total_cholesterol($line[9]) . "'";
+    $line[10] = "'" . parse_systolic_blood_pressure($line[10]) . "'";
+    $line[11] = "'" .parse_diastolic_blood_pressure($line[11]) . "'";
+    $line[12] = "'" . parse_body_mass_index($line[12]) . "'";
+    // hart rate not parsed
+    $line[14] = "'" . parse_glucose($line[14]) . "'";
+
+    if($line[15] == 0){
+      $class_0_counter++;
+      if($class_0_counter % 5 == 0){
+        $class_0_counter = 0;
+        fwrite($test_data, implode(',',$line));
+      }else{
+        fwrite($train_data, implode(',',$line));
+      }
+    }else{
+      $class_1_counter++;
+      if($class_1_counter % 5 == 0){
+        $class_1_counter = 0;
+        fwrite($test_data, implode(',',$line));
+      }else{
+        fwrite($train_data, implode(',',$line));
+      }
+    }
+
+  }
+  $count ++;
+}
+fclose($raw_file);
+fclose($train_data);
+fclose($test_data);
+
+function parse_age($age){
+  if($age <= 36){
+    return '0-36';
+  }else if($age <= 40){
+    return '37-40';
+  }else if($age <= 44){
+    return '41-44';
+  }else if($age <= 48){
+    return '45-48';
+  }else if($age <= 52){
+    return '49-52';
+  }else if($age <= 56){
+    return '53-56';
+  }else if($age <= 60){
+    return '57-60';
+  }else if($age <= 64){
+    return '61-64';
+  }else if($age > 64){
+    return '65-MORE';
+  }else{
+    return 'NaN';
+  }
+}
+function parse_cigs_per_day($cigs_per_day){
+  if($cigs_per_day == 0){
+    return 'NON-SMOKER';
+  }else if($cigs_per_day > 0 && $cigs_per_day <= 10){
+    return '1-10';
+  }else if($cigs_per_day > 10 && $cigs_per_day <= 20){
+    return '11-20';
+  }else if($cigs_per_day > 10 && $cigs_per_day <= 20){
+    return '11-20';
+  }else if($cigs_per_day > 20 && $cigs_per_day <= 30){
+    return '21-30';
+  }else if($cigs_per_day > 30 && $cigs_per_day <= 45){
+    return '31-45';
+  }else if($cigs_per_day > 45){
+    return '45-MORE';
+  }else{
+    return 'NaN';
+  }
+}
+function parse_total_cholesterol($total_cholesterol){
+  if($total_cholesterol <= 150){
+    return 'LOW CHOLESTEROL';
+  }else if($total_cholesterol <= 200){
+    return 'INTERMEDIATE LOW CHOLESTEROL';
+  }else if($total_cholesterol <= 240){
+    return 'NORMAL CHOLESTEROL';
+  }else if($total_cholesterol <= 300){
+    return 'INTERMEDIATE HIGH CHOLESTEROL';
+  }else if($total_cholesterol > 300){
+    return 'HIGH CHOLESTEROL';
+  }else{
+    return 'NaN';
+  }
+}
+function parse_systolic_blood_pressure($systolic_blood_pressure){
+  if($systolic_blood_pressure < 80){
+    return 'EXTREMELY LOW SBP';
+  }else if($systolic_blood_pressure < 120){
+    return 'NORMAL SBP';
+  }else if($systolic_blood_pressure < 130){
+    return 'ELEVATED SBP';
+  }else if($systolic_blood_pressure < 140){
+    return 'HIGH FIRST STAGE SBP';
+  }else if($systolic_blood_pressure < 180){
+    return 'HIGH SECOND STAGE SBP';
+  }else if($systolic_blood_pressure >= 180){
+    return 'HYPERTENSIVE CRISIS SBP';
+  }else{
+    return 'NaN';
+  }
+}
+function parse_diastolic_blood_pressure($diastolic_blood_pressure){
+  if($diastolic_blood_pressure < 50){
+    return 'EXTREMELY LOW DBP';
+  }else if($diastolic_blood_pressure < 80){
+    return 'NORMAL DBP';
+  }else if($diastolic_blood_pressure < 90){
+    return 'HIGH FIRST STAGE DBP';
+  }else if($diastolic_blood_pressure < 120){
+    return 'HIGH SECOND STAGE DBP';
+  }else if($diastolic_blood_pressure >= 120){
+    return 'HYPERTENSIVE CRISIS DBP';
+  }else{
+    return 'NaN';
+  }
+}
+function parse_body_mass_index($bmi){
+  if($bmi <= 18.5){
+    return 'UNDERWEIGHT';
+  }else if($bmi <= 24.9){
+    return 'NORMAL WEIGHT';
+  }else if($bmi <= 29.9){
+    return 'OVERWEIGHT';
+  }else if($bmi > 29.9){
+    return 'OBESE';
+  }else{
+    return 'NaN';
+  }
+}
+function parse_glucose($glucose){
+  if($glucose < 70){
+    return 'HYPOGLYCEMIA';
+  }else if($glucose < 100){
+    return 'NORMAL GLUCOSE';
+  }else if($glucose <= 125){
+    return 'PRE DIABETES';
+  }else if($glucose > 125){
+    return 'DIABETES';
+  }else{
+    return 'NaN';
+  }
+}
+?>

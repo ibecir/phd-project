@@ -15,7 +15,7 @@ export default class App extends Component<Props> {
   }
   onTestPress(){
     console.log("Pressed");
-    fetch('http://10.10.2.224:8080/car',{
+    fetch('http://10.20.30.41:8080/car',{
       method: 'POST',
       headers: {
         Accept: 'application/json',
